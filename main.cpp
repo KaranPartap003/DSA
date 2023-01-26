@@ -1,40 +1,81 @@
 #include <iostream>
-#include <list>
-#define N 8
+#include <vector>
 using namespace std;
 
-int binarysearch(int arr[], int n, int k) {
-    int s=0;
-    int e=n;   
-    while (s<=e)
+bool IsPossible(int Barrier , vector<int> vec , int n){//n = no of students to deistribute pages among
+    int students = 1;
+    int pages = 0;
+    for (size_t i = 0; i < vec.size() ; i++)
     {
-        int mid;
-        mid = (s+e)/2;
-        if (k==arr[mid])
+        if (vec[i] > Barrier) // first element is bigger
         {
-            return mid;
+            return false;
         }
-        else if (k < arr[mid])
+        if ( pages + vec[i] > Barrier )// adding another student if pages exceeds barrier
         {
-            e = mid - 1;
+            students += 1;
+            pages = vec[i];
         }
-        else if(k > arr[mid])
+        else
         {
-            s = mid + 1;
+            pages += vec[i]; //incrementing no of pages 
         }
     }
-    return -1;
+    if (students > n )
+    {
+        return false;
+    }
+    return true;
 }
-int main(){
-    int arr[N];
-    cout<<"enter elements"<<"\n";
-    for (size_t i = 0; i < N; i++)
+
+int minimum(vector<int> vec){
+    int min = vec[0];
+    for (size_t i = 1; i < vec.size()-1 ; i++)
     {
-        cin >> arr[i];
+        if(vec[i] < min){
+            min = vec[i];
+        }
     }
-    cout << "enter key" << "\n";
-    int key;
-    cin >> key;
-    cout << binarysearch(arr,N,key);
-    
+    return min;
+}
+
+int highest(vector<int> vec){
+    int h = vec[0];
+    for (size_t i = 1; i < vec.size()-1 ; i++)
+    {
+        if(vec[i] > h){
+            h = vec[i];
+        }
+    }
+    return h;
+}
+
+class solution{
+public:
+    int MaxAlloc(vector <int> vec , int n){//n = no of students
+        int low = minimum(vec);
+        int high = highest(vec);
+        int mid = (low + high)/2 ;
+        int res = -1;
+        while (low <= high)
+        {
+            if (IsPossible(mid , vec , n))
+            {
+                res = mid;
+                high = mid - 1; 
+            }    
+            else
+            {
+                low = mid + 1;
+            }
+        }
+        return res;
+    }
+};
+
+int main(){
+    vector<int> v = {10,10,20,30};
+    solution o1;
+    cout<<o1.MaxAlloc(v , 2);
+    return 0;
 }
