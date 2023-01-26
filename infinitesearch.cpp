@@ -1,6 +1,5 @@
 #include <iostream>
-#include <list>
-#define N 8
+#define N 6
 using namespace std;
 
 int binarysearch(int arr[], int n, int k) {
@@ -25,16 +24,22 @@ int binarysearch(int arr[], int n, int k) {
     }
     return -1;
 }
-int main(){
-    int arr[N];
-    cout<<"enter elements"<<"\n";
-    for (size_t i = 0; i < N; i++)
-    {
-        cin >> arr[i];
+
+class solution{
+public:
+    void SearchInfinite(int arr[] , int key){
+        int l = 0;
+        int r = 1;
+        while (arr[r] < key)
+        {
+            l = r;
+            r *= 2;
+        }
+        binarysearch(arr , N , key);
     }
-    cout << "enter key" << "\n";
-    int key;
-    cin >> key;
-    cout << binarysearch(arr,N,key);
-    
+};
+
+int main(){
+
+    return 0;
 }
