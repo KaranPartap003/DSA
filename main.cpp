@@ -28,7 +28,7 @@ bool IsPossible(int Barrier , vector<int> vec , int n){//n = no of students to d
     return true;
 }
 
-int minimum(vector<int> vec){
+int minimum(vector<int> vec){ // finding out the lowest element of vector
     int min = vec[0];
     for (size_t i = 1; i < vec.size()-1 ; i++)
     {
@@ -39,7 +39,7 @@ int minimum(vector<int> vec){
     return min;
 }
 
-int highest(vector<int> vec){
+int highest(vector<int> vec){ // finding out the highest element of vector
     int h = vec[0];
     for (size_t i = 1; i < vec.size()-1 ; i++)
     {
